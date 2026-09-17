@@ -3,9 +3,9 @@ package org.sysc4806.lab1;
 public class BuddyInfo {
 
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public BuddyInfo(String name, int phoneNumber) {
+    public BuddyInfo(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
@@ -18,11 +18,11 @@ public class BuddyInfo {
         this.name = name;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
