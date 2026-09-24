@@ -1,17 +1,46 @@
 package org.sysc4806.lab2;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import jakarta.persistence.*;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main() {
+        persist();
+    }
+
+    static void persist(){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-persistence");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        em.persist(new BuddyInfo("Buddy1", "6131234567"));
+        em.persist(new BuddyInfo("Buddy2", "6131234567"));
+
+        tx.commit();
+
+        Query q = em.createQuery("select b from BuddyInfo b");
+        List<BuddyInfo> buddyList = q.getResultList();
+        for (BuddyInfo b : buddyList){
+            System.out.println(b.getId() +" : "+ b.getName() +" : "+ b.getPhoneNumber());
         }
+
+        tx.begin();
+        AddressBook addressBook = new AddressBook();
+        addressBook.addBuddy(new BuddyInfo("Buddy3", "6131234567"));
+        addressBook.addBuddy(new BuddyInfo("Buddy4", "6131234567"));
+        addressBook.addBuddy(new BuddyInfo("Buddy5", "6131234567"));
+        em.persist(addressBook);
+        tx.commit();
+
+        AddressBook persistedBook = em.find(AddressBook.class, addressBook.getId());
+        for(int i = 0; i < persistedBook.getBuddies().size(); i++){
+            System.out.println(persistedBook.getBuddies().get(i).getId() +" : "+ persistedBook.getBuddies().get(i).getName() +" : "+ persistedBook.getBuddies().get(i).getPhoneNumber());
+        }
+
+
     }
 }
