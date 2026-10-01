@@ -1,4 +1,4 @@
-package org.sysc4806.lab3;
+package org.sysc4806.Main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
