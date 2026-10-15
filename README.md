@@ -21,3 +21,5 @@ Wrote JPQL queries to fetch persisted data to test it works.
 Same as lab 2 but using Spring Data JPA and persisting data in a H2 database.
 
 ## Lab 4
+
+Expanded on lab 3 and created REST controllers to expose endpoints
